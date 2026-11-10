@@ -7,7 +7,7 @@ Cosmetic changes to copied code are not sufficient.
 | Member | First scenario | Second scenario | Evidence folder |
 | --- | --- | --- | --- |
 | 1 | | | `docs/evidence/member-1/` |
-| 2 | | | `docs/evidence/member-2/` |
+| 2 | Delete an active task | Delete a completed task | `docs/evidence/member-2/` |
 | 3 | | | `docs/evidence/member-3/` |
 | 4, if present | | | `docs/evidence/member-4/` |
 | 5, if present | | | `docs/evidence/member-5/` |
