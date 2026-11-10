@@ -142,6 +142,7 @@ def test_active_filter_delete_active_task(page: Page):
     expect(task_labels).to_have_text(["Read testing notes"])
     expect(task_input).to_have_value("")
 
+    page.get_by_test_id("todo-title").hover()
     page.get_by_role("button", name="Delete").click()
     expect(task_items).to_have_count(0)
 
@@ -175,6 +176,7 @@ def test_active_filter_delete_completed_task(page: Page):
 
     page.get_by_role("link", name="Completed", exact=True).click()
 
+    page.get_by_test_id("todo-title").hover()
     page.get_by_role("button", name="Delete").click()
     expect(task_items).to_have_count(0)
 
