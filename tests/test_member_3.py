@@ -122,3 +122,44 @@ def test_add_two_tasks(page: Page):
     expect(task_items.locator("label")).to_have_text(
         ["Read the instructions", "Practise the examples"]
     )
+
+def test_clear_completed_tasks_from_a_mixed_list(page: Page):
+    page.goto("https://demo.playwright.dev/todomvc/#/")
+    page.get_by_role("textbox", name="What needs to be done?").fill("1")
+    page.get_by_role("textbox", name="What needs to be done?").press("Enter")
+    page.get_by_role("textbox", name="What needs to be done?").fill("2")
+    page.get_by_role("textbox", name="What needs to be done?").press("Enter")
+    page.get_by_role("textbox", name="What needs to be done?").fill("3")
+    page.get_by_role("textbox", name="What needs to be done?").press("Enter")
+    expect(page.locator(".todo-list li")).to_have_count(3)
+
+    page.get_by_role("listitem").filter(has_text="1").get_by_label("Toggle Todo").check()
+    page.get_by_role("listitem").filter(has_text="2").get_by_label("Toggle Todo").check()
+    page.get_by_role("button", name="Clear completed").click()    
+    expect(page.locator(".todo-list li")).to_have_count(1)
+
+    page.screenshot(
+        path="docs/evidence/member-3/extra-test-1-clear-completed.png",
+        full_page=True,
+    )
+
+def test_mark_all_complete(page: Page):
+    page.goto("https://demo.playwright.dev/todomvc/#/")
+    page.get_by_role("textbox", name="What needs to be done?").fill("a")
+    page.get_by_role("textbox", name="What needs to be done?").press("Enter")
+    page.get_by_role("textbox", name="What needs to be done?").fill("b")
+    page.get_by_role("textbox", name="What needs to be done?").press("Enter")
+    page.get_by_role("textbox", name="What needs to be done?").fill("c")
+    page.get_by_role("textbox", name="What needs to be done?").press("Enter")
+
+    expect(page.locator(".todo-list li")).to_have_count(3)
+    expect(page.locator(".todo-list li.completed")).to_have_count(0)
+
+    page.get_by_text("Mark all as complete").click()
+
+    expect(page.locator(".todo-list li.completed")).to_have_count(3)
+
+    page.screenshot(
+        path="docs/evidence/member-3/extra-test-2-mark-all-complete.png",
+        full_page=True,
+    )
